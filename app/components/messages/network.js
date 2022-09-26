@@ -6,10 +6,14 @@ const controller = new MessageController();
 const router = express.Router();
 
 router.get('/', (req, res) => {
-    res.header({
-        'Custom-header': 'Nuestro valor especificiado',
-    });
-    response.success(req, res, 'Lista de mensajes');
+    controller
+        .getMessages()
+        .then((messages) => {
+            response.success(req, res, messages, 200);
+        })
+        .catch((error) => {
+            response.error(req, res, error, 500);
+        });
 });
 
 router.post('/', (req, res) => {
