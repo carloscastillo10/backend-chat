@@ -1,6 +1,8 @@
-const express = require('express');
+const MessageController = require('./controller');
 const response = require('../../network/response');
+const express = require('express');
 
+const controller = new MessageController();
 const router = express.Router();
 
 router.get('/', (req, res) => {
@@ -11,11 +13,14 @@ router.get('/', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    if (req.query.error == 'ok') {
-        response.error(req, res, 'Error simulado', 400);
-    } else {
-        response.success(req, res, 'Creado exitosamente', 201);
-    }
+    controller
+        .addMessage(req.body.user, req.body.message)
+        .then((fullMessage) => {
+            response.success(req, res, fullMessage, 201);
+        })
+        .catch((error) => {
+            response.error(req, res, error, 400);
+        });
 });
 
 module.exports = router;
