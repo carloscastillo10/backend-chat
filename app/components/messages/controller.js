@@ -4,24 +4,57 @@ class MessageController {
         this.store = new MessageStore();
     }
 
-    addMessage(user, message) {
+    addMessage(user, text) {
         return new Promise((resolve, reject) => {
-            if (!user || !message) {
-                return reject('Los datos son incorrectos');
+            if (!user || !text) {
+                return reject('Invalid data');
             }
-            const fullMessage = {
+            const message = {
                 user: user,
-                message: message,
+                text: text,
                 date: new Date(),
             };
-            this.store.add(fullMessage);
-            resolve(fullMessage);
+            this.store.add(message);
+            resolve(message);
         });
     }
 
-    getMessages() {
+    getMessages(filterUser) {
         return new Promise((resolve, reject) => {
-            resolve(this.store.list());
+            this.store
+                .list(filterUser)
+                .then((messages) => {
+                    resolve(messages);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
+        });
+    }
+
+    updateMessage(id, text) {
+        return new Promise((resolve, reject) => {
+            if (!id || !text) {
+                return reject('Invalid data');
+            }
+            const result = this.store.update(id, text);
+            resolve(result);
+        });
+    }
+
+    deleteMessage(id) {
+        return new Promise((resolve, reject) => {
+            if (!id) {
+                return reject('Invalid data');
+            }
+            this.store
+                .delete(id)
+                .then(() => {
+                    resolve(`message ${id} deleted`);
+                })
+                .catch((error) => {
+                    reject(error);
+                });
         });
     }
 }
