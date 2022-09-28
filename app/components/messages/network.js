@@ -24,7 +24,7 @@ router.post('/', (req, res) => {
             response.success(req, res, message, 201);
         })
         .catch((error) => {
-            response.error(req, res, error.message, 400);
+            response.error(req, res, error.message, 500);
         });
 });
 

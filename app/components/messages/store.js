@@ -1,18 +1,25 @@
-
 const MessageModel = require('./model');
 class MessageStore {
-    add(text) {
-        const newMessage = new MessageModel(text);
-        newMessage.save();
+    async add(text) {
+        const message = new MessageModel(text);
+        return await message.save(); // Return Promise
     }
 
     async list(filterUser) {
-        let filter = {};
-        if (filterUser !== null) {
-            filter = { user: filterUser };
-        }
-        const messages = await MessageModel.find(filter);
-        return messages;
+        return new Promise((resolve, reject) => {
+            let filter = {};
+            if (filterUser !== null) {
+                filter = { user: filterUser };
+            }
+            MessageModel.find(filter)
+                .populate('user')
+                .exec((error, populated) => {
+                    if (error) {
+                        return reject(error);
+                    }
+                    resolve(populated);
+                });
+        });
     }
 
     async update(id, text) {
@@ -20,14 +27,13 @@ class MessageStore {
             _id: id,
         });
         message.text = text;
-        const newMessage = await message.save();
-        return newMessage;
+        return await message.save();
     }
 
-    delete(id) {
-        return MessageModel.deleteOne({
-            _id: id
-        })
+    async delete(id) {
+        return await MessageModel.deleteOne({
+            _id: id,
+        }); // Return promise
     }
 }
 
