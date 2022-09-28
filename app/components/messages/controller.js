@@ -4,11 +4,12 @@ class MessageController {
         this.store = new MessageStore();
     }
 
-    addMessage(user, text) {
-        if (!user || !text) {
+    addMessage(chat, user, text) {
+        if (!chat || !user || !text) {
             return Promise.reject('Invalid data');
         }
         const message = {
+            chat: chat,
             user: user,
             text: text,
             date: new Date(),
@@ -16,8 +17,8 @@ class MessageController {
         return this.store.add(message);
     }
 
-    getMessages(filterUser) {
-        return this.store.list(filterUser)
+    getMessages(chatId) {
+        return this.store.list(chatId);
     }
 
     updateMessage(id, text) {

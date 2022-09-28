@@ -5,11 +5,11 @@ class MessageStore {
         return await message.save(); // Return Promise
     }
 
-    async list(filterUser) {
+    async list(chatId) {
         return new Promise((resolve, reject) => {
             let filter = {};
-            if (filterUser !== null) {
-                filter = { user: filterUser };
+            if (chatId !== null) {
+                filter = { chat: chatId };
             }
             MessageModel.find(filter)
                 .populate('user')

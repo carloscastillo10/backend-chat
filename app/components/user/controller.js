@@ -16,34 +16,8 @@ class UserController {
     }
 
     getUsers() {
-        return this.store.list()
+        return this.store.list();
     }
-
-    // updateMessage(id, text) {
-    //     return new Promise((resolve, reject) => {
-    //         if (!id || !text) {
-    //             return reject('Invalid data');
-    //         }
-    //         const result = this.store.update(id, text);
-    //         resolve(result);
-    //     });
-    // }
-
-    // deleteMessage(id) {
-    //     return new Promise((resolve, reject) => {
-    //         if (!id) {
-    //             return reject('Invalid data');
-    //         }
-    //         this.store
-    //             .delete(id)
-    //             .then(() => {
-    //                 resolve(`message ${id} deleted`);
-    //             })
-    //             .catch((error) => {
-    //                 reject(error);
-    //             });
-    //     });
-    // }
 }
 
 module.exports = UserController;
