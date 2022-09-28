@@ -1,4 +1,4 @@
-const config = require('../../config/config')
+const config = require('../../config/config');
 const MessageStore = require('./store');
 const socket = require('../../real-time/socket').socket;
 class MessageController {
@@ -7,13 +7,19 @@ class MessageController {
     }
 
     addMessage(chat, user, text, file) {
+        let fileUrl = '';
+
         if (!chat || !user || !text) {
             return Promise.reject('Invalid data');
         }
 
-        let fileUrl = '';
         if (file) {
-            fileUrl = `${config.host}:${config.port}/${config.publicRoute}/${config.filesRoute}/${file.filename}`;
+            let hostUrl = config.host;
+
+            if (!config.isProd) {
+                hostUrl = `${config.host}:${config.port}`;
+            }
+            fileUrl = `${hostUrl}/${config.publicRoute}/${config.filesRoute}/${file.filename}`;
         }
 
         const message = {
