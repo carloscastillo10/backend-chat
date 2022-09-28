@@ -1,4 +1,3 @@
-
 const UserModel = require('./model');
 
 class UserStore {
@@ -10,21 +9,6 @@ class UserStore {
     async list() {
         return await UserModel.find();
     }
-
-    // async update(id, text) {
-    //     const message = await UserModel.findOne({
-    //         _id: id,
-    //     });
-    //     message.text = text;
-    //     const newMessage = await message.save();
-    //     return newMessage;
-    // }
-
-    // delete(id) {
-    //     return UserModel.deleteOne({
-    //         _id: id
-    //     })
-    // }
 }
 
 module.exports = UserStore;

@@ -1,15 +1,15 @@
-const UserController = require('./controller');
+const ChatController = require('./controller');
 const response = require('../../network/response');
 const express = require('express');
 
-const controller = new UserController();
+const controller = new ChatController();
 const router = express.Router();
 
-router.get('/', (req, res) => {
+router.get('/:userId', (req, res) => {
     controller
-        .getUsers()
-        .then((users) => {
-            response.success(req, res, users, 200);
+        .getChats(req.params.userId)
+        .then((chats) => {
+            response.success(req, res, chats, 200);
         })
         .catch((error) => {
             response.error(req, res, error.message, 500);
@@ -18,9 +18,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
     controller
-        .addUser(req.body.name)
-        .then((user) => {
-            response.success(req, res, user, 201);
+        .addChat(req.body.users)
+        .then((chat) => {
+            response.success(req, res, chat, 201);
         })
         .catch((error) => {
             response.error(req, res, error.message, 500);

@@ -1,14 +1,20 @@
+const config = require('../../config/config')
 const MessageController = require('./controller');
 const response = require('../../network/response');
 const express = require('express');
+const multer = require('multer');
 
 const controller = new MessageController();
 const router = express.Router();
+const uploadMiddelware = multer({
+    dest: `${config.staticRoute}/${config.filesRoute}/`,
+})
+
 
 router.get('/', (req, res) => {
-    const filterUser = req.query.user || null;
+    const chatId = req.query.chat || null;
     controller
-        .getMessages(filterUser)
+        .getMessages(chatId)
         .then((messages) => {
             response.success(req, res, messages, 200);
         })
@@ -17,9 +23,9 @@ router.get('/', (req, res) => {
         });
 });
 
-router.post('/', (req, res) => {
+router.post('/', uploadMiddelware.single('file'), (req, res) => {
     controller
-        .addMessage(req.body.user, req.body.text)
+        .addMessage(req.body.chat, req.body.user, req.body.text, req.file)
         .then((message) => {
             response.success(req, res, message, 201);
         })
