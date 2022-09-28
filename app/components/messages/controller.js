@@ -1,3 +1,4 @@
+const config = require('../../config/config')
 const MessageStore = require('./store');
 const socket = require('../../real-time/socket').socket;
 class MessageController {
@@ -12,7 +13,7 @@ class MessageController {
 
         let fileUrl = '';
         if (file) {
-            fileUrl = `http://localhost:3000/app/files/${file.filename}`;
+            fileUrl = `${config.host}:${config.port}/${config.publicRoute}/${config.filesRoute}/${file.filename}`;
         }
 
         const message = {

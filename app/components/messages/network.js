@@ -1,3 +1,4 @@
+const config = require('../../config/config')
 const MessageController = require('./controller');
 const response = require('../../network/response');
 const express = require('express');
@@ -6,7 +7,7 @@ const multer = require('multer');
 const controller = new MessageController();
 const router = express.Router();
 const uploadMiddelware = multer({
-    dest: 'public/files/',
+    dest: `${config.staticRoute}/${config.filesRoute}/`,
 })
 
 
