@@ -19,6 +19,4 @@ routerApi(app);
 // Serve static files
 app.use(`/${config.publicRoute}`, express.static(config.staticRoute));
 
-server.listen(config.port, () => {
-    console.log('My port ' + config.port);
-});
+server.listen(config.port);
