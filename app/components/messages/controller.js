@@ -1,4 +1,5 @@
 const MessageStore = require('./store');
+const socket = require('../../real-time/socket').socket;
 class MessageController {
     constructor() {
         this.store = new MessageStore();
@@ -21,6 +22,8 @@ class MessageController {
             date: new Date(),
             file: fileUrl,
         };
+        socket.io.emit('message', message);
+
         return this.store.add(message);
     }
 
