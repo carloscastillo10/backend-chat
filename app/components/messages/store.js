@@ -1,14 +1,6 @@
-const { config } = require('../../config/config');
-const database = require('mongoose');
-const MessageModel = require('./model');
 
-database.Promise = global.Promise;
+const MessageModel = require('./model');
 class MessageStore {
-    constructor() {
-        database.connect(config.dbUrl, {
-            useNewUrlParser: true,
-        });
-    }
     add(text) {
         const newMessage = new MessageModel(text);
         newMessage.save();
