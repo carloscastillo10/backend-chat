@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const messageSchema = new Schema({
     user: {
-        type: String,
+        type: Schema.ObjectId,
+        ref: 'User',
         required: true,
     },
     text: {
@@ -13,6 +14,6 @@ const messageSchema = new Schema({
     date: Date,
 });
 
-const MessageModel = mongoose.model('messages', messageSchema);
+const MessageModel = mongoose.model('Message', messageSchema);
 
 module.exports = MessageModel;

@@ -5,31 +5,19 @@ class MessageController {
     }
 
     addMessage(user, text) {
-        return new Promise((resolve, reject) => {
-            if (!user || !text) {
-                return reject('Invalid data');
-            }
-            const message = {
-                user: user,
-                text: text,
-                date: new Date(),
-            };
-            this.store.add(message);
-            resolve(message);
-        });
+        if (!user || !text) {
+            return Promise.reject('Invalid data');
+        }
+        const message = {
+            user: user,
+            text: text,
+            date: new Date(),
+        };
+        return this.store.add(message);
     }
 
     getMessages(filterUser) {
-        return new Promise((resolve, reject) => {
-            this.store
-                .list(filterUser)
-                .then((messages) => {
-                    resolve(messages);
-                })
-                .catch((error) => {
-                    reject(error);
-                });
-        });
+        return this.store.list(filterUser)
     }
 
     updateMessage(id, text) {
