@@ -4,6 +4,7 @@ const statusMessages = {
     400: 'Invalid data',
     500: 'Internal error',
 };
+
 function success(req, res, message, status) {
     let statusCode = status;
     let statusMessage = message;
