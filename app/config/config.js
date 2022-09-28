@@ -6,7 +6,7 @@ const config = {
     host: process.env.HOST || 'http://localhost',
     port: process.env.PORT || 3000,
     publicRoute: process.env.PUBLIC_ROUTE || 'app',
-    staticRoute: process.env.STATIC_ROUTE || 'public'
+    staticRoute: process.env.STATIC_ROUTE || 'app/public'
 };
 
 module.exports = config;
