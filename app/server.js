@@ -11,7 +11,7 @@ app.use(bodyParser.json());
 routerApi(app);
 
 // Serve static files
-// app.use('/app', express.static('public'));
+app.use('/app', express.static('public'));
 
 app.listen(config.port, () => {
     console.log('My port ' + config.port);

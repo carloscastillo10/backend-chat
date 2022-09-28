@@ -5,7 +5,7 @@ const messageSchema = new Schema({
     chat: {
         type: Schema.ObjectId,
         ref: 'Cahat',
-        required: true
+        required: true,
     },
     user: {
         type: Schema.ObjectId,
@@ -17,6 +17,7 @@ const messageSchema = new Schema({
         required: true,
     },
     date: Date,
+    file: String,
 });
 
 const MessageModel = mongoose.model('Message', messageSchema);
